@@ -16,7 +16,8 @@ describe Makita::Space do
       [68]
   end
 
-  subject(:demo_space) { DemographicSpace.new(Demographic.all) }
+  let(:full_set) { Demographic.all }
+  subject(:demo_space) { DemographicSpace.new(full_set) }
 
   describe "::axes" do
     it "is empty for the base" do
@@ -29,19 +30,22 @@ describe Makita::Space do
   end
 
   describe "#filtered" do
+    subject(:filtered) { demo_space.filtered }
+    subject(:filtered_ages) { filtered.map(&:age) }
+
     context "without filters" do
-      it "returns all records" do
-        expect(demo_space.filtered.to_a).to match_array Demographic.all.to_a
+      it "contains full set" do
+        expect(filtered).to match_array full_set
       end
     end
 
-    context "exact filter" do
+    context "filter on value" do
       before do
         demo_space.filters = { age: 22 }
       end
 
-      it "returns matching records" do
-        expect(demo_space.filtered.size).to eq 1
+      it "contains matching records" do
+        expect(filtered_ages).to match_array [ 22 ]
       end
     end
   end
