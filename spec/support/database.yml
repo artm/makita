@@ -1,0 +1,7 @@
+# makita only uses the database for testing
+test:
+  adapter: postgresql
+  encoding: unicode
+  password:
+  pool: 5
+  database: makita_test
