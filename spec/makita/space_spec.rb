@@ -48,5 +48,15 @@ describe Makita::Space do
         expect(filtered_ages).to match_array [ 22 ]
       end
     end
+
+    context "ge-filter" do
+      before do
+        demo_space.filters = { age: { ge: 22 } }
+      end
+
+      it "contains matching records" do
+        expect(filtered_ages).to match_array [ 22, 68 ]
+      end
+    end
   end
 end
