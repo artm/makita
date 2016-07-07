@@ -10,7 +10,7 @@ module Makita
 
     def make_filter params
       if params.include?(name)
-        Filter.new(self, params)
+        Filter.new(self, params[name])
       end
     end
   end

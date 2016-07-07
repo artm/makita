@@ -1,10 +1,10 @@
 module Makita
   class Filter
-    attr_reader :axis, :params
+    attr_reader :axis, :config
 
-    def initialize axis, params
+    def initialize axis, config
       @axis = axis
-      @params = params
+      @config = config
     end
 
     def apply relation
@@ -12,7 +12,7 @@ module Makita
     end
 
     def condition
-      { axis.name => params[axis.name] }
+      { axis.name => config }
     end
   end
 end
