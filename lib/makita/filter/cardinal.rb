@@ -3,6 +3,42 @@ require_relative "base"
 module Makita
   module Filter
     class Cardinal < Base
+      def conditions
+        terms = filter_value.split(",")
+        ranges, simples = terms.partition {|term| term[range_separator_re] }
+        term_conditions = [simple_condition(simples)] + range_conditions(ranges)
+        or_conditions(*term_conditions)
+      end
+
+      private
+
+      def range_separator_re
+        /[-~]/
+      end
+
+      def simple_condition values
+        case values.count
+        when 0
+          nil
+        when 1
+          ["#{name} = ?", values.first]
+        else
+          ["#{name} in (?)", values]
+        end
+      end
+
+      def range_conditions ranges
+        ranges.map{|range| range_condition(range)}
+      end
+
+      def range_condition range
+        left, right = range.split(range_separator_re)
+        separator = range[range_separator_re]
+        right_op = {"-" => "<=", "~" => "<"}.fetch(separator)
+        left_condition = ["(#{name} >= ?)", left] if left.present?
+        right_condition = ["(#{name} #{right_op} ?)", right] if right.present?
+        and_conditions(left_condition, right_condition)
+      end
     end
   end
 end
