@@ -1,11 +1,10 @@
 module Makita
   class Filter
-    attr_reader :axis, :config
+    attr_reader :axis, :filter_value
 
-    def initialize axis, config
+    def initialize axis, filter_value
       @axis = axis
-      config = { eq: config } unless Hash === config
-      @config = config
+      @filter_value = filter_value
     end
 
     def apply relation
@@ -13,14 +12,7 @@ module Makita
     end
 
     def conditions
-      @config.map{|op,value|
-        case op
-        when :eq
-          { axis.name => value }
-        when :ge
-          ["#{axis.name} >= ?", value]
-        end
-      }
+      [ axis.name => filter_value ]
     end
   end
 end

@@ -4,7 +4,7 @@ require "models/demographic"
 require "support/tabular_seed"
 
 class DemographicSpace < Makita::Space
-  axis :age
+  axis :age, type: :cardinal
 end
 
 describe Makita::Space do
@@ -56,6 +56,16 @@ describe Makita::Space do
 
       it "contains matching records" do
         expect(filtered_ages).to match_array [ 22, 68 ]
+      end
+    end
+
+    context "gt-filter" do
+      before do
+        demo_space.filters = { age: { gt: 22 } }
+      end
+
+      it "contains matching records" do
+        expect(filtered_ages).to match_array [ 68 ]
       end
     end
   end
