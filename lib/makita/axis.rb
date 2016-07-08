@@ -2,7 +2,7 @@ require_relative "filter"
 
 module Makita
   class Axis
-    attr_reader :name
+    attr_reader :name, :type
 
     def initialize name, options = {}
       @name = name
@@ -11,7 +11,7 @@ module Makita
 
     def make_filter params
       if params.include?(name)
-        Filter.new(self, params[name])
+        Filter.create(type, self, params[name])
       end
     end
 

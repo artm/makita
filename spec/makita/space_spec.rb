@@ -49,5 +49,8 @@ describe Makita::Space do
     it_supports "filtering", {age: "22-"}, [22, 68, 99]
     it_supports "filtering", {age: "-22"}, [18, 22]
     it_supports "filtering", {age: "22-68"}, [22, 68]
+    it_supports "filtering", {age: "18,99"}, [18, 99]
+    it_supports "filtering", {age: "18,68-99"}, [18, 68, 99]
+    it_supports "filtering", {age: "-22,99"}, [18, 22, 99]
   end
 end

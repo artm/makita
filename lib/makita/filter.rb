@@ -1,18 +1,12 @@
+require_relative "filter/cardinal"
+
 module Makita
-  class Filter
-    attr_reader :axis, :filter_value
-
-    def initialize axis, filter_value
-      @axis = axis
-      @filter_value = filter_value
-    end
-
-    def apply relation
-      relation.where(*conditions)
-    end
-
-    def conditions
-      [ axis.name => filter_value ]
+  module Filter
+    def self.create type, *args, &block
+      type = type.to_s.camelize
+      klass = "Makita::Filter::#{type}"
+      klass = klass.constantize
+      klass.new *args, &block
     end
   end
 end
