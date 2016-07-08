@@ -13,7 +13,8 @@ describe Makita::Space do
       [:age],
       [18],
       [22],
-      [68]
+      [68],
+      [99]
   end
 
   let(:full_set) { Demographic.all }
@@ -29,44 +30,24 @@ describe Makita::Space do
     end
   end
 
-  describe "#filtered" do
-    subject(:filtered) { demo_space.filtered }
-    subject(:filtered_ages) { filtered.map(&:age) }
-
-    context "without filters" do
-      it "contains full set" do
-        expect(filtered).to match_array full_set
-      end
+  shared_examples_for "filtering" do |filter_params, expectation|
+    it "with #{filter_params} returns #{expectation}" do
+      subject.filters = filter_params
+      expectation = public_send(expectation) if expectation.is_a? Symbol
+      expect(match_against).to match_array expectation
     end
+  end
 
-    context "filter on value" do
-      before do
-        demo_space.filters = { age: 22 }
-      end
+  context "no filter" do
+    let (:match_against) { demo_space.filtered }
+    it_supports "filtering", {}, :full_set
+  end
 
-      it "contains matching records" do
-        expect(filtered_ages).to match_array [ 22 ]
-      end
-    end
-
-    context "ge-filter" do
-      before do
-        demo_space.filters = { age: { ge: 22 } }
-      end
-
-      it "contains matching records" do
-        expect(filtered_ages).to match_array [ 22, 68 ]
-      end
-    end
-
-    context "gt-filter" do
-      before do
-        demo_space.filters = { age: { gt: 22 } }
-      end
-
-      it "contains matching records" do
-        expect(filtered_ages).to match_array [ 68 ]
-      end
-    end
+  context "cardinal filter" do
+    let(:match_against) { demo_space.filtered.to_a.map(&:age) }
+    it_supports "filtering", {age: "22"}, [22]
+    it_supports "filtering", {age: "22-"}, [22, 68, 99]
+    it_supports "filtering", {age: "-22"}, [18, 22]
+    it_supports "filtering", {age: "22-68"}, [22, 68]
   end
 end
