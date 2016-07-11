@@ -1,4 +1,5 @@
 require_relative "filter/cardinal"
+require_relative "filter/rational"
 
 module Makita
   module Filter
