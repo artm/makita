@@ -6,6 +6,7 @@ module Schema
     ActiveRecord::Schema.define do
       create_table :demographics, force: true do |t|
         t.integer :age, default: 0, null: false
+        t.float :score, default: 0.0, null: false
       end
     end
   end
