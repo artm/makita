@@ -13,6 +13,16 @@ module Makita
         relation.where(*conditions)
       end
 
+      protected
+
+      def values
+        if filter_value.is_a? Array
+          filter_value
+        else
+          [filter_value]
+        end
+      end
+
       # expect each condition in the form [string, *optional_args]
       # will remove nils, returns a single [string, *args]
       def join_conditions op, *conditions

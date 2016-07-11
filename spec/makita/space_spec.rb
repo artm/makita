@@ -82,6 +82,8 @@ describe Makita::Space do
 
   context "bitmask filter" do
     let(:match_against) { demo_space.filtered.to_a.map(&:body_mods) }
+    it_supports "filtering", {body_mods: "piercing"},
+      [[:tattoo, :piercing], [:tattoo, :piercing, :scarring]]
     it_supports "filtering", {body_mods: ["piercing"]},
       [[:tattoo, :piercing], [:tattoo, :piercing, :scarring]]
     it_supports "filtering", {body_mods: ["tattoo", "~scarring"]},

@@ -14,11 +14,11 @@ module Makita
       private
 
       def in_values
-        filter_value.reject{|value| value[/^~/]}
+        values.reject{|value| value[/^~/]}
       end
 
       def out_values
-        filter_value
+        values
           .select{|value| value[/^~/]}
           .map{|value| value[1..-1]}
       end
