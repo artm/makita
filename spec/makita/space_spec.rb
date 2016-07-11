@@ -61,5 +61,12 @@ describe Makita::Space do
   context "rational filter" do
     let(:match_against) { demo_space.filtered.to_a.map(&:score) }
     it_supports "filtering", {score: "0.01"}, [0.01, 0.01]
+    it_supports "filtering", {score: "-0.01"}, []
+    it_supports "filtering", {score: "-0.01~0.01"}, []
+    it_supports "filtering", {score: "-0.01~0.1"}, [0.01, 0.01]
+    it_supports "filtering", {score: "-0.01,0.01,0.1,0.50"}, [0.01, 0.01, 0.50]
+    it_supports "filtering", {score: "~0.3"}, [0.01, 0.01, 0.20]
+    it_supports "filtering", {score: "0.3~"}, [0.50]
+    it_supports "filtering", {score: "~0.1,0.3~"}, [0.01,0.01,0.50]
   end
 end
