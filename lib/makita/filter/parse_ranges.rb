@@ -1,6 +1,6 @@
 module Makita
   module Filter
-    module CommaSeparatedRanges
+    module ParseRanges
       def conditions
         ranges, simples = values.partition {|term| term[range_separator_re] }
         term_conditions = [simple_condition(simples)] + range_conditions(ranges)

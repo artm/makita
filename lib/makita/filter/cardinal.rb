@@ -1,10 +1,10 @@
 require_relative "base"
-require_relative "comma_separated_ranges"
+require_relative "parse_ranges"
 
 module Makita
   module Filter
     class Cardinal < Base
-      include CommaSeparatedRanges
+      include ParseRanges
 
       private
 
