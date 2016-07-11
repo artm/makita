@@ -2,7 +2,7 @@ module Makita
   module Filter
     class Base
       attr_reader :axis, :filter_value
-      delegate :name, to: :axis
+      delegate :model, :name, to: :axis
 
       def initialize axis, filter_value
         @axis = axis

@@ -20,8 +20,10 @@ module Makita
     end
 
     class << self
+      attr_accessor :model
+
       def axis *args, &block
-        axes << Axis.new(*args, &block)
+        axes << Axis.new(self, *args, &block)
         self
       end
 

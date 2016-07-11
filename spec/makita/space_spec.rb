@@ -4,6 +4,7 @@ require "models/demographic"
 require "support/tabular_seed"
 
 class DemographicSpace < Makita::Space
+  self.model = Demographic
   axis :age, type: :cardinal
   axis :score, type: :rational
   axis :gender, type: :enum
@@ -69,5 +70,12 @@ describe Makita::Space do
     it_supports "filtering", {score: "~0.3"}, [0.01, 0.01, 0.20]
     it_supports "filtering", {score: "0.3~"}, [0.50]
     it_supports "filtering", {score: "~0.1,0.3~"}, [0.01,0.01,0.50]
+  end
+
+  context "enum filter" do
+    let(:match_against) { demo_space.filtered.to_a.map(&:gender) }
+    it_supports "filtering", {gender: "male"}, %w[male male]
+    it_supports "filtering", {gender: "female"}, %w[female]
+    it_supports "filtering", {gender: "female,male"}, %w[female male male]
   end
 end

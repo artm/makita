@@ -2,9 +2,11 @@ require_relative "filter"
 
 module Makita
   class Axis
-    attr_reader :name, :type
+    attr_reader :space, :name, :type
+    delegate :model, to: :space
 
-    def initialize name, options = {}
+    def initialize space, name, options = {}
+      @space = space
       @name = name
       @type = options[:type] || pick_type
     end
