@@ -6,16 +6,17 @@ require "support/tabular_seed"
 class DemographicSpace < Makita::Space
   axis :age, type: :cardinal
   axis :score, type: :rational
+  axis :gender, type: :enum
 end
 
 describe Makita::Space do
   before(:each) do
     TabularSeed.into Demographic,
-      [:age, :score],
-      [  18,   0.01],
-      [  22,   0.01],
-      [  68,   0.20],
-      [  99,   0.50]
+      [:age, :score,  :gender],
+      [  18,   0.01,    :male],
+      [  22,   0.01,  :female],
+      [  68,   0.20,    :male],
+      [  99,   0.50, :unknown]
   end
 
   let(:full_set) { Demographic.all }
