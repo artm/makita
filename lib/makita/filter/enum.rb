@@ -12,7 +12,7 @@ module Makita
       private
 
       def value_to_ints
-        filter_value.split(",").map{|string|
+        values.map{|string|
           enum[string.to_sym]
         }
       end
