@@ -57,4 +57,9 @@ describe Makita::Space do
     it_supports "filtering", {age: "~22"}, [18]
     it_supports "filtering", {age: "22~68"}, [22]
   end
+
+  context "rational filter" do
+    let(:match_against) { demo_space.filtered.to_a.map(&:score) }
+    it_supports "filtering", {score: "0.01"}, [0.01, 0.01]
+  end
 end
