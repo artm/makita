@@ -79,4 +79,12 @@ describe Makita::Space do
     it_supports "filtering", {gender: "female"}, %w[female]
     it_supports "filtering", {gender: "female,male"}, %w[female male male]
   end
+
+  context "bitmask filter" do
+    let(:match_against) { demo_space.filtered.to_a.map(&:body_mods) }
+    it_supports "filtering", {body_mods: ["piercing"]},
+      [[:tattoo, :piercing], [:tattoo, :piercing, :scarring]]
+    it_supports "filtering", {body_mods: ["tattoo", "~scarring"]},
+      [[:tattoo, :piercing], [:tattoo]]
+  end
 end

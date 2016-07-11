@@ -1,6 +1,7 @@
 require_relative "filter/cardinal"
 require_relative "filter/rational"
 require_relative "filter/enum"
+require_relative "filter/bitmask"
 
 module Makita
   module Filter
