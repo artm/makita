@@ -13,7 +13,15 @@ module Makita
       private
 
       def range_separator_re
-        /[-~]/
+        Regexp.union(sep_to_op_mapping.keys)
+      end
+
+      def sep_to_op_mapping
+        {"-" => "<=", "~" => "<"}
+      end
+
+      def range_sep_to_op sep
+        sep_to_op_mapping.fetch(sep)
       end
 
       def simple_condition values
@@ -34,7 +42,7 @@ module Makita
       def range_condition range
         left, right = range.split(range_separator_re)
         separator = range[range_separator_re]
-        right_op = {"-" => "<=", "~" => "<"}.fetch(separator)
+        right_op = range_sep_to_op(separator)
         left_condition = ["(#{name} >= ?)", left] if left.present?
         right_condition = ["(#{name} #{right_op} ?)", right] if right.present?
         and_conditions(left_condition, right_condition)
