@@ -53,9 +53,9 @@ describe Makita::Space do
     it_supports "filtering", {age: "22-"}, [22, 68, 99]
     it_supports "filtering", {age: "-22"}, [18, 22]
     it_supports "filtering", {age: "22-68"}, [22, 68]
-    it_supports "filtering", {age: "18,99"}, [18, 99]
-    it_supports "filtering", {age: "18,68-99"}, [18, 68, 99]
-    it_supports "filtering", {age: "-22,99"}, [18, 22, 99]
+    it_supports "filtering", {age: %w[18 99]}, [18, 99]
+    it_supports "filtering", {age: %w[18 68-99]}, [18, 68, 99]
+    it_supports "filtering", {age: %w[-22 99]}, [18, 22, 99]
     it_supports "filtering", {age: "22~"}, [22, 68, 99]
     it_supports "filtering", {age: "~22"}, [18]
     it_supports "filtering", {age: "22~68"}, [22]
@@ -67,10 +67,10 @@ describe Makita::Space do
     it_supports "filtering", {score: "-0.01"}, []
     it_supports "filtering", {score: "-0.01~0.01"}, []
     it_supports "filtering", {score: "-0.01~0.1"}, [0.01, 0.01]
-    it_supports "filtering", {score: "-0.01,0.01,0.1,0.50"}, [0.01, 0.01, 0.50]
+    it_supports "filtering", {score: %w[-0.01 0.01 0.1 0.50]}, [0.01, 0.01, 0.50]
     it_supports "filtering", {score: "~0.3"}, [0.01, 0.01, 0.20]
     it_supports "filtering", {score: "0.3~"}, [0.50]
-    it_supports "filtering", {score: "~0.1,0.3~"}, [0.01,0.01,0.50]
+    it_supports "filtering", {score: %w[~0.1 0.3~]}, [0.01,0.01,0.50]
   end
 
   context "enum filter" do

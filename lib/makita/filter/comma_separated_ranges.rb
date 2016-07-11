@@ -2,8 +2,7 @@ module Makita
   module Filter
     module CommaSeparatedRanges
       def conditions
-        terms = filter_value.split(",")
-        ranges, simples = terms.partition {|term| term[range_separator_re] }
+        ranges, simples = values.partition {|term| term[range_separator_re] }
         term_conditions = [simple_condition(simples)] + range_conditions(ranges)
         or_conditions(*term_conditions)
       end
