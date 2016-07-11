@@ -34,4 +34,5 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency "activerecord", "~> 4.0"
   spec.add_dependency "pg", "~> 0.18"
+  spec.add_dependency "bitmask_attributes", "~> 1.0"
 end

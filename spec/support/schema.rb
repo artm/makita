@@ -8,6 +8,7 @@ module Schema
         t.integer :age, default: 0, null: false
         t.float :score, default: 0.0, null: false
         t.integer :gender, default: 0, null: false
+        t.integer :body_mods, default: 0, null: false
       end
     end
   end
