@@ -17,7 +17,26 @@ module Makita
         filter_value
       end
 
+      def describe
+        {
+          title: description_title,
+          values: describe_values
+        } if report_filter_value.present?
+      end
+
       protected
+
+      def description_title
+        "#{name} filter"
+      end
+
+      def describe_values
+        values.map{|v| describe_value(v) }
+      end
+
+      def describe_value value
+        value.to_s
+      end
 
       def values
         if filter_value.is_a? Array

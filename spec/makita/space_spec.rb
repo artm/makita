@@ -106,4 +106,28 @@ describe Makita::Space do
       end
     end
   end
+
+  describe "#describe" do
+    it "is empty initially" do
+      expect(demo_space.describe).to be_empty
+    end
+
+    context "with filters set" do
+      let(:input_params) {{ age: "22", score: "0~0.2", gender: %w[male female] }}
+      before(:each) do
+        demo_space.filters = input_params
+      end
+      let(:desc) { demo_space.describe }
+      let(:titles) { desc.map{|d| d[:title] } }
+      let(:values) { desc.map{|d| d[:values] } }
+
+      it "names active filters in current locale" do
+        expect(titles).to match ["Leeftijd", "Score", "Geslacht"]
+      end
+
+      xit "describes active filter values in current locale" do
+        expect(values).to match [["22"], ["0 tot 0.2"], ["Man", "Vrouw"]]
+      end
+    end
+  end
 end

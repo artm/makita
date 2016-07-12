@@ -30,6 +30,10 @@ module Makita
       }
     end
 
+    def describe
+      filters.map(&:describe)
+    end
+
     class << self
       attr_accessor :model
 
