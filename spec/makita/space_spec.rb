@@ -125,7 +125,7 @@ describe Makita::Space do
         expect(titles).to match ["Leeftijd", "Score", "Geslacht"]
       end
 
-      xit "describes active filter values in current locale" do
+      it "describes active filter values in current locale" do
         expect(values).to match [["22"], ["0 tot 0.2"], ["Man", "Vrouw"]]
       end
     end

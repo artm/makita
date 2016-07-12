@@ -35,7 +35,7 @@ module Makita
       end
 
       def describe_value value
-        value.to_s
+        model.human_attribute_name("#{name}/#{value}", default: value.to_s)
       end
 
       def values

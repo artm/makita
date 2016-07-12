@@ -7,6 +7,17 @@ module Makita
         or_conditions(*term_conditions)
       end
 
+      protected
+
+      def describe_value value
+        left, sep, right = parse_range(value)
+        if sep.present?
+          I18n.t("makita.range.inout", left: left, right: right)
+        else
+          super
+        end
+      end
+
       private
 
       def range_separator_re
@@ -36,9 +47,14 @@ module Makita
         ranges.map{|range| range_condition(range)}
       end
 
+      def parse_range value
+        left, right = value.split(range_separator_re)
+        separator = value[range_separator_re]
+        [left, separator, right]
+      end
+
       def range_condition range
-        left, right = range.split(range_separator_re)
-        separator = range[range_separator_re]
+        left, separator, right = parse_range(range)
         right_op = range_sep_to_op(separator)
         left_condition = ["(#{name} >= ?)", left] if left.present?
         right_condition = ["(#{name} #{right_op} ?)", right] if right.present?
