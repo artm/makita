@@ -13,6 +13,10 @@ module Makita
         relation.where(*conditions)
       end
 
+      def report_filter_value
+        filter_value
+      end
+
       protected
 
       def values

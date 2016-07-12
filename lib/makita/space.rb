@@ -20,7 +20,14 @@ module Makita
     end
 
     def filter_params
-      {}
+      filters.reduce({}) { |params, filter|
+        value = filter.report_filter_value
+        if value.present?
+          params.merge(filter.name => value)
+        else
+          params
+        end
+      }
     end
 
     class << self

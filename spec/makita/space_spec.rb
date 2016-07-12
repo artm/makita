@@ -94,5 +94,16 @@ describe Makita::Space do
     it "is empty initially" do
       expect(demo_space.filter_params).to be_empty
     end
+
+    context "with filters set" do
+      let(:input_params) {{ age: "22", score: "0~0.2", gender: %w[male female] }}
+      before(:each) do
+        demo_space.filters = input_params
+      end
+
+      it "lists the params of the set filters" do
+        expect(demo_space.filter_params).to match input_params
+      end
+    end
   end
 end
