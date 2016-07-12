@@ -27,7 +27,7 @@ module Makita
       protected
 
       def description_title
-        "#{name} filter"
+        model.human_attribute_name(name)
       end
 
       def describe_values
