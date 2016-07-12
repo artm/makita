@@ -19,6 +19,10 @@ module Makita
       }.compact
     end
 
+    def filter_params
+      {}
+    end
+
     class << self
       attr_accessor :model
 

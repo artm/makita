@@ -89,4 +89,10 @@ describe Makita::Space do
     it_supports "filtering", {body_mods: %w[tattoo ~scarring]},
       [[:tattoo, :piercing], [:tattoo]]
   end
+
+  describe "#filter_params" do
+    it "is empty initially" do
+      expect(demo_space.filter_params).to be_empty
+    end
+  end
 end
