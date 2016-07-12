@@ -1,0 +1,10 @@
+nl:
+  activerecord:
+    models:
+      demographic: Demografische statistiek
+    attributes:
+      demographic:
+        age: Leeftijd
+        score: Score
+        gender: Geslacht
+        body_mods: Lichamswijziging
